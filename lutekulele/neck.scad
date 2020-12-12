@@ -7,6 +7,10 @@ module neckbody(length=140, bottom_diameter=40, top_diameter=30) {
     difference() {
         cyl(l=length, d1=bottom_diameter,d2=top_diameter, align=ALIGN_POS);
         translate([-bottom_diameter/2, 0, -5]) cube([bottom_diameter+10,bottom_diameter+10,length+10]);
+        // the fangs inlay thing
+        translate([-10,0,0]) right_triangle(size=[30,10,60], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
+        mirror([1,0,0]) translate([-10,0,0]) right_triangle(size=[30,10,60], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
+        cuboid(size=[20,10,10], align=V_FRONT+V_UP);
     }
     //maybe move this?
     translate([0,-6,130])rotate([70,0,0]) pegbox();
@@ -62,7 +66,26 @@ module peg(peg_d=8, head_d=15, join_d=10, peg_l=45, join_l=2, hole=25, hole_d=2)
 }
 
 module nut() {
+    difference() {
+        cuboid(size=[30,5,4], align=V_BOTTOM+V_BACK);
+        translate([0,1,4]) fillet_mask_x($fn=30, l=35,r=4, align=V_BOTTOM+V_BACK);
+    }
 }
 
+module nut_cut() {
+    union() {
+        cuboid(size=[35,5,4], align=V_BOTTOM+V_BACK);
+        translate([0,1,4]) fillet_mask_x($fn=30, l=35,r=4, align=V_BOTTOM+V_BACK);
+    }
+}
+
+difference(){
 neckbody();
+difference() {
+translate([0,-4,140]) nut_cut();
+// nut cut support
+translate([0,-4,140]) cuboid(size=[30,10,1],align=V_BOTTOM+V_BACK);
+}
+}
 //taper();
+//translate([0,-4,140]) nut();
