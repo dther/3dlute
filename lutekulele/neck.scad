@@ -80,7 +80,12 @@ module nut_cut() {
 }
 
 difference(){
+union(){
 neckbody();
+//fang thingy supports
+translate([15,0,0]) cuboid(size=[5,10,1], align=V_FRONT+V_TOP);
+mirror([1,0,0])translate([15,0,0]) cuboid(size=[5,10,1], align=V_FRONT+V_TOP);
+}
 difference() {
 translate([0,-4,140]) nut_cut();
 // nut cut support
