@@ -2,6 +2,11 @@ include <src/BOSL/constants.scad>
 use <src/BOSL/shapes.scad>
 use <src/BOSL/masks.scad>
 
+//TODO: **IMPORTANT** Nut (and by extension, neck and bridge) are WAY TOO NARROW.
+//REWORK THIS TO BE WIDER. CONSULT PLANS.
+//courses should be 10mm APART AT THE NUT
+//and 13mm APART AT THE BRIDGE
+
 module neckbody(length=140, bottom_diameter=40, top_diameter=30) {
     union() {
     difference() {
