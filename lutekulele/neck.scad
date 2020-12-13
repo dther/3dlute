@@ -2,20 +2,22 @@ include <src/BOSL/constants.scad>
 use <src/BOSL/shapes.scad>
 use <src/BOSL/masks.scad>
 
-//TODO: **IMPORTANT** Nut (and by extension, neck and bridge) are WAY TOO NARROW.
-//REWORK THIS TO BE WIDER. CONSULT PLANS.
-//courses should be 10mm APART AT THE NUT
-//and 13mm APART AT THE BRIDGE
-
-module neckbody(length=140, bottom_diameter=40, top_diameter=30) {
+module neckbody(length=140, bottom_diameter=55, top_diameter=40) {
     union() {
     difference() {
         cyl(l=length, d1=bottom_diameter,d2=top_diameter, align=ALIGN_POS);
         translate([-bottom_diameter/2, 0, -5]) cube([bottom_diameter+10,bottom_diameter+10,length+10]);
         // the fangs inlay thing
-        translate([-10,0,0]) right_triangle(size=[30,10,60], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
-        mirror([1,0,0]) translate([-10,0,0]) right_triangle(size=[30,10,60], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
-        cuboid(size=[20,10,10], align=V_FRONT+V_UP);
+        translate([-15,0,0]) right_triangle(size=[15,10,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
+        mirror([1,0,0]) translate([-15,0,0]) right_triangle(size=[15,10,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
+        cuboid(size=[30,10,10], align=V_FRONT+V_UP);
+        // pegbox slot
+        translate([0,-6,130])rotate([70,0,0])difference() {
+            prismoid(size1=[35,20], size2=[20,15], h=120);
+            //need to truncate it a lil, it's cutting into the nut hole
+            cuboid([35,20,10]);
+            //TODO: mess with this if you ever plan on printing pegbox separately
+        }
     }
     //maybe move this?
     translate([0,-6,130])rotate([70,0,0]) pegbox();
@@ -26,18 +28,18 @@ module pegbox($fn=40) {
     difference() { //comment/uncomment to toggle peg visibility
         union() {
             difference() {
-                prismoid(size1=[25,20], size2=[20,15], h=120);
+                prismoid(size1=[35,20], size2=[20,15], h=120);
                 translate([-5,-10,0])cube([10,50,110]);
                 //TODO: ???? agh!
                 //translate([0,0,0]) rotate([180,180,0]) right_triangle([20,20,30], orient=ORIENT_X, align=ALIGN_POS);
                 //add a fillet here to prevent string cuttin'
                 //I have absolutely NO IDEA how this filleting mask works.
                 //If you do, please send a pull request on how i can parameterise it better.
-                translate([5,10,0]) fillet_mask_z(l=110,r=7,align=ALIGN_POS);
-                mirror([1,0,0]) translate([5,10,0]) fillet_mask_z(l=110,r=7,align=ALIGN_POS);
+                translate([5,10,0]) fillet_mask_z(l=110,r=10,align=ALIGN_POS);
+                mirror([1,0,0]) translate([5,10,0]) fillet_mask_z(l=110,r=10,align=ALIGN_POS);
             }
             //TODO: there's probably some kind of trigonometric way to figure out the pie slice angle.
-            translate([0, -10, 1])pie_slice(ang=88, l=20, r=20, orient=ORIENT_X, center=true);
+            translate([0, -10, 1])pie_slice(ang=88, l=30, r=20, orient=ORIENT_X, center=true);
         }
         //TODO: turn this into a for loop
         translate([0,0,25]) rotate([0,-90,0]) peg(hole=19);
@@ -70,17 +72,17 @@ module peg(peg_d=8, head_d=15, join_d=10, peg_l=45, join_l=2, hole=25, hole_d=2)
     }
 }
 
-module nut() {
+module nut(length=41) {
     difference() {
-        cuboid(size=[30,5,4], align=V_BOTTOM+V_BACK);
-        translate([0,1,4]) fillet_mask_x($fn=30, l=35,r=4, align=V_BOTTOM+V_BACK);
+        cuboid(size=[length,5,4], align=V_BOTTOM+V_BACK);
+        translate([0,1,4]) fillet_mask_x($fn=30, l=length,r=4, align=V_BOTTOM+V_BACK);
     }
 }
 
-module nut_cut() {
+module nut_cut(length=41) {
     union() {
-        cuboid(size=[35,5,4], align=V_BOTTOM+V_BACK);
-        translate([0,1,4]) fillet_mask_x($fn=30, l=35,r=4, align=V_BOTTOM+V_BACK);
+        cuboid(size=[length,5,4], align=V_BOTTOM+V_BACK);
+        translate([0,1,4]) fillet_mask_x($fn=30, l=length,r=4, align=V_BOTTOM+V_BACK);
     }
 }
 
@@ -88,13 +90,13 @@ difference(){
 union(){
 neckbody();
 //fang thingy supports
-translate([15,0,0]) cuboid(size=[5,10,1], align=V_FRONT+V_TOP);
-mirror([1,0,0])translate([15,0,0]) cuboid(size=[5,10,1], align=V_FRONT+V_TOP);
+translate([23,0,0]) cuboid(size=[5,10,1], align=V_FRONT+V_TOP);
+mirror([1,0,0])translate([23,0,0]) cuboid(size=[5,10,1], align=V_FRONT+V_TOP);
 }
 difference() {
 translate([0,-4,140]) nut_cut();
 // nut cut support
-translate([0,-4,140]) cuboid(size=[30,10,1],align=V_BOTTOM+V_BACK);
+translate([0,-4,140]) cuboid(size=[40,10,1],align=V_BOTTOM+V_BACK);
 }
 }
 //taper();
