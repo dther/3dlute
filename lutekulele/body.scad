@@ -1,4 +1,5 @@
 include <src/BOSL/shapes.scad>
+include <src/BOSL/transforms.scad>
 use <src/BOSL/constants.scad>
 use <neck.scad>
 
@@ -62,9 +63,13 @@ module soundbar(l=65,thickness=3,height=10) {
     }
 }
 
-module bridge() {
-    //TODO: add string holes
-    cuboid(size=[40,10,10],align=V_BACK+V_DOWN);
+module bridge(length=70, course_width=5, string_height=5) {
+    difference() {
+        cuboid(size=[length,10,10], align=V_BACK+V_DOWN, chamfer=5,
+                edges=EDGE_BOT_BK);
+        //slots for strings
+        xspread(l=50,n=4) cuboid(size=[course_width,string_height,25], align=V_BACK);
+    }
 }
 
 difference() {
@@ -81,10 +86,10 @@ difference() {
     //View soundboard
     //translate([0,-70, 0]) cuboid(size=[200,100,300], align=ALIGN_POS);
     // Neck slot
-    roughneck();
+    translate([0,0.00000001,0]) roughneck();
 }
 
-roughneck();
+//roughneck();
 //Bridge
 // 50-5 to account for nut
 translate([0,0,45]) bridge();
@@ -117,7 +122,7 @@ translate([-40, 0,0]) cube([100,100,1000]);
 //luteshape2(10);
 
 //scale length visualiser
-//translate([0,0,50]) cyl(l=300, d=10, align=ALIGN_POS);
+//translate([0,0,45]) cyl(l=300, d=10, align=ALIGN_POS);
 //
 //String layout visualiser
-
+//translate([0,0,45]) prismoid(size1=[55,5],size2=[37,5],h=300);
