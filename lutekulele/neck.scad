@@ -6,6 +6,7 @@ module neckbody(length=140, bottom_diameter=55, top_diameter=40) {
     union() {
     difference() {
         cyl(l=length, d1=bottom_diameter,d2=top_diameter, align=ALIGN_POS);
+        //cut entire thing in half
         translate([-bottom_diameter/2, 0, -5]) cube([bottom_diameter+10,bottom_diameter+10,length+10]);
         // the fangs inlay thing
         translate([-15,0,0]) right_triangle(size=[15,10,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
