@@ -63,12 +63,14 @@ module soundbar(l=65,thickness=3,height=10) {
     }
 }
 
-module bridge(length=70, course_width=5, string_height=5) {
+module bridge(length=70, course_width=5, string_height=5, bridge_height=10) {
     difference() {
-        cuboid(size=[length,10,10], align=V_BACK+V_DOWN, chamfer=5,
+        cuboid(size=[length,bridge_height,10], align=V_BACK+V_DOWN, chamfer=5,
                 edges=EDGE_BOT_BK);
         //slots for strings
-        xspread(l=50,n=4) cuboid(size=[course_width,string_height,25], align=V_BACK);
+        hole_height=(bridge_height-string_height)/2; //hole height =/= string height
+        //TODO: Feels a bit short now. Going to need to do some testing.
+        xspread(l=50,n=4) cuboid(size=[course_width,hole_height,25], align=V_BACK);
     }
 }
 
