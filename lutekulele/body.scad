@@ -40,16 +40,22 @@ module lutebody(radius) {
 }
 
 module roughneck() {
+// used for visualisation purposes but also for
+// cutting the slot in the neck block
     translate([0, 0, 210]) union() {
         //NUT
         translate([0,-4,140]) nut();
         difference() {
             neckbody();
-            difference() {
-                translate([0,-4,140]) nut_cut();
-                // nut cut support
-                //translate([0,-4,140]) cuboid(size=[30,10,1],align=V_BOTTOM+V_BACK);
-            }
+            translate([0,-4,140]) nut_cut();
+        }
+        difference() {
+            cyl(l=10, d1=56, d2=75, align=ALIGN_POS, $fn=360);
+            //TODO: consider making tolerance flare
+            //a cylinder with a flare instead of a gigantic flare
+            // translate to account for fang inlay
+            translate([0,-10,0]) cuboid(size=[100,100,20], align=V_BACK+V_UP);
+            
         }
     }
 }
@@ -88,7 +94,9 @@ difference() {
     //View soundboard
     //translate([0,-70, 0]) cuboid(size=[200,100,300], align=ALIGN_POS);
     // Neck slot
-    translate([0,0.00000001,0]) roughneck();
+    translate([0,0.001,0]) #roughneck();
+    //TODO: add some kind of "flare" to the back that can be filled with filament-solder
+    //TODO: at the same time, increses the tolerance a bit. It's too tight to press fit right now.
 }
 
 //roughneck();

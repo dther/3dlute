@@ -2,6 +2,10 @@ include <src/BOSL/constants.scad>
 use <src/BOSL/shapes.scad>
 use <src/BOSL/masks.scad>
 
+//Added to the fang inlay thingy to increase clearances between it and the neck block slot.
+//SET TO 0 BEFORE PRINTING THE BODY!!!
+neck_block_tolerance=1.5;
+
 module neckbody(length=140, bottom_diameter=55, top_diameter=40) {
     union() {
     difference() {
@@ -9,9 +13,9 @@ module neckbody(length=140, bottom_diameter=55, top_diameter=40) {
         //cut entire thing in half
         translate([-bottom_diameter/2, 0, -5]) cube([bottom_diameter+10,bottom_diameter+10,length+10]);
         // the fangs inlay thing
-        translate([-15,0,0]) right_triangle(size=[15,10,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
-        mirror([1,0,0]) translate([-15,0,0]) right_triangle(size=[15,10,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
-        cuboid(size=[30,10,10], align=V_FRONT+V_UP);
+        translate([-15,0,0]) #right_triangle(size=[15,10+neck_block_tolerance,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
+        mirror([1,0,0]) translate([-15,0,0]) #right_triangle(size=[15,10+neck_block_tolerance,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
+        #cuboid(size=[30+neck_block_tolerance,10+neck_block_tolerance,10+neck_block_tolerance], align=V_FRONT+V_UP);
         // pegbox slot
         translate([0,-6,130])rotate([70,0,0])difference() {
             prismoid(size1=[35,20], size2=[20,15], h=120);
@@ -87,12 +91,17 @@ module nut_cut(length=41) {
     }
 }
 
+//The whole neck, with supports
+/*
 difference(){
 union(){
-neckbody();
+difference() {
+    neckbody();
+    //translate([0,0,30]) #cuboid(size=[200,150,200],align=V_FRONT+V_UP);//uncomment to print a "test piece" to test if it fits in the neck block slot
+}
 //fang thingy supports
-translate([23,0,0]) cuboid(size=[5,10,1], align=V_FRONT+V_TOP);
-mirror([1,0,0])translate([23,0,0]) cuboid(size=[5,10,1], align=V_FRONT+V_TOP);
+translate([23,0,0]) cuboid(size=[5,10+neck_block_tolerance,1], align=V_FRONT+V_TOP);
+mirror([1,0,0])translate([23,0,0]) cuboid(size=[5,10+neck_block_tolerance,1], align=V_FRONT+V_TOP);
 }
 difference() {
 translate([0,-4,140]) nut_cut();
