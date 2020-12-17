@@ -70,7 +70,10 @@ module peg(peg_d=8, head_d=15, join_d=10, peg_l=45, join_l=2, hole=25, hole_d=2)
     difference() {
         union() {
             cyl(l=peg_l, d1=peg_d, d2=peg_d2);
-            translate([0,0,-(peg_l/2+head_d/2)]) cyl(l=peg_d, d=head_d, orient=ORIENT_Y);
+            //translate([0,0,-(peg_l/2+head_d/2)]) cyl(l=peg_d, d=head_d, orient=ORIENT_Y);
+            //These should print better...
+            translate([0,0,-(peg_l/2+head_d/2)]) cuboid(size=[head_d,peg_d,head_d], fillet=head_d/8,
+                    edges=EDGE_TOP_RT+EDGE_TOP_LF+EDGE_TOP_FR+EDGE_TOP_BK, $fn=50);
             translate([0,0,-(peg_l/2)]) cyl(l=join_l, d=join_d);
         }
         translate([0,0,-(peg_l/2)+hole]) cyl(l=peg_d*2, d=hole_d, orient=ORIENT_Y, $fn=40);
@@ -109,5 +112,19 @@ translate([0,-4,140]) nut_cut();
 translate([0,-4,140]) cuboid(size=[40,10,1],align=V_BOTTOM+V_BACK);
 }
 }
-//taper();
+*/
+
 //translate([0,-4,140]) nut();
+//just the N U T
+nut();
+
+// the pegs
+/*
+        translate([0,0,0]) peg(hole=19);
+        translate([20,0,0])peg(hole=19);
+        translate([40,0,0]) peg(hole=20);
+        translate([0,20,0])peg(hole=20);
+        translate([20,20,0]) peg(hole=21);
+        translate([40,20,0])peg(hole=21);
+        translate([60,20,0])peg(hole=22);
+*/
