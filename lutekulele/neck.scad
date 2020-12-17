@@ -84,6 +84,21 @@ module nut(length=41) {
     difference() {
         cuboid(size=[length,5,4], align=V_BOTTOM+V_BACK);
         translate([0,1,4]) fillet_mask_x($fn=30, l=length,r=4, align=V_BOTTOM+V_BACK);
+        //string holes
+        between_courses=10;
+        between_strings=2.5;
+        string_width=1.5;
+        //G
+        translate([(length/2-3),5,0])#cyl(d=string_width,h=10,$fn=20);
+        translate([(length/2-3)-between_strings,5,0])#cyl(d=string_width,h=10,$fn=20);
+        //c
+        translate([(length/2-3)-(between_strings+between_courses),5,0])#cyl(d=string_width,h=10,$fn=20);
+        translate([(length/2-3)-(between_strings+between_courses)-between_strings,5,0])#cyl(d=string_width,h=10,$fn=20);
+        //e
+        translate([(length/2-3)-2*(between_strings+between_courses),5,0])#cyl(d=string_width,h=10,$fn=20);
+        translate([(length/2-3)-2*(between_strings+between_courses)-between_strings,5,0])#cyl(d=string_width,h=10,$fn=20);
+        //a
+        translate([(length/2-3)-3*(between_strings+between_courses)+between_strings,5,0])#cyl(d=string_width,h=10,$fn=20);
     }
 }
 
