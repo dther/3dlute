@@ -53,9 +53,7 @@ module roughneck() {
             translate([0,-4,140]) nut_cut();
         }
         difference() {
-            cyl(l=10, d1=56, d2=75, align=ALIGN_POS, $fn=360);
-            //TODO: consider making tolerance flare
-            //a cylinder with a flare instead of a gigantic flare
+            cyl(l=10, d1=56, d2=56, align=ALIGN_POS, $fn=360);
             // translate to account for fang inlay
             translate([0,-10,0]) cuboid(size=[100,100,20], align=V_BACK+V_UP);
             
