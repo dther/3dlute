@@ -6,7 +6,7 @@ use <src/BOSL/masks.scad>
 //SET TO 0 BEFORE PRINTING THE BODY!!!
 neck_block_tolerance=1.5;
 
-module neckbody(length=140, bottom_diameter=55, top_diameter=40) {
+module neckbody(length=140, bottom_diameter=55, top_diameter=40, neck_block_tolerance=neck_block_tolerance) {
     union() {
     difference() {
         cyl(l=length, d1=bottom_diameter,d2=top_diameter, align=ALIGN_POS);
@@ -109,8 +109,9 @@ module nut_cut(length=41) {
     }
 }
 
+
 //The whole neck, with supports
-/*
+
 difference(){
 union(){
 difference() {
@@ -127,11 +128,11 @@ translate([0,-4,140]) nut_cut();
 translate([0,-4,140]) cuboid(size=[40,10,1],align=V_BOTTOM+V_BACK);
 }
 }
-*/
+
 
 //translate([0,-4,140]) nut();
 //just the N U T
-nut();
+//nut();
 
 // the pegs
 /*

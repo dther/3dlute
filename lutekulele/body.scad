@@ -3,6 +3,9 @@ include <src/BOSL/transforms.scad>
 use <src/BOSL/constants.scad>
 use <neck.scad>
 
+//set to 0 so as to make hole bigger
+neck_block_tolerance=0;
+
 module luteshape(radius) {
     translate([0,radius,0]) union() {
         circle(radius);
@@ -46,7 +49,7 @@ module roughneck() {
         //NUT
         translate([0,-4,140]) nut();
         difference() {
-            neckbody();
+            neckbody(neck_block_tolerance=neck_block_tolerance);
             translate([0,-4,140]) nut_cut();
         }
         difference() {
