@@ -13,9 +13,9 @@ module neckbody(length=140, bottom_diameter=55, top_diameter=40, neck_block_tole
         //cut entire thing in half
         translate([-bottom_diameter/2, 0, -5]) cube([bottom_diameter+10,bottom_diameter+10,length+10]);
         // the fangs inlay thing
-        translate([-15,0,0]) #right_triangle(size=[15,10+neck_block_tolerance,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
-        mirror([1,0,0]) translate([-15,0,0]) #right_triangle(size=[15,10+neck_block_tolerance,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
-        #cuboid(size=[30+neck_block_tolerance,10+neck_block_tolerance,10+neck_block_tolerance], align=V_FRONT+V_UP);
+        translate([-15,0,0]) right_triangle(size=[15,10+neck_block_tolerance,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
+        mirror([1,0,0]) translate([-15,0,0]) right_triangle(size=[15,10+neck_block_tolerance,10], orient=ORIENT_Y, align=V_FRONT+V_UP+V_LEFT);
+        cuboid(size=[30+neck_block_tolerance,10+neck_block_tolerance,10+neck_block_tolerance], align=V_FRONT+V_UP);
         // pegbox slot
         translate([0,-6,130])rotate([70,0,0])difference() {
             prismoid(size1=[35,20], size2=[20,15], h=120);
@@ -23,6 +23,13 @@ module neckbody(length=140, bottom_diameter=55, top_diameter=40, neck_block_tole
             cuboid([35,20,10]);
             //TODO: mess with this if you ever plan on printing pegbox separately
         }
+        //TODO: add bevel to allow easier fret tying
+        // Need to do some trig to figure out the angle...
+        // bevel mask is rotated because of neck taper
+        bevel_rotation=-(90-atan(length/((bottom_diameter-top_diameter)/2)));
+        chamfer_size=1;
+        translate([bottom_diameter/2,0,0]) rotate([0,bevel_rotation,0]) chamfer_mask(l=length,chamfer=chamfer_size,align=ALIGN_POS);
+        mirror([1,0,0]) translate([bottom_diameter/2,0,0]) rotate([0,bevel_rotation,0]) chamfer_mask(l=length,chamfer=chamfer_size,align=ALIGN_POS);
     }
     //maybe move this?
     translate([0,-6,130])rotate([70,0,0]) pegbox();
@@ -130,7 +137,7 @@ translate([0,-4,140]) cuboid(size=[40,10,1],align=V_BOTTOM+V_BACK);
 }
 
 
-//translate([0,-4,140]) nut();
+translate([0,-4,140]) nut();
 //just the N U T
 //nut();
 
