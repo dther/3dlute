@@ -20,3 +20,13 @@ Currently, only one instrument is being worked on.
  - Medieval Lute - An early medieval lute, 4 strings in double courses.
  - 6c Tenor Renaissance Lute - The goal of this project.
  - 12c Baroque Lute - Hopefully. I doubt this kind of thing is possible.
+
+## LICENSE
+
+(c) Rudy Dellomas III <dther@dther.xyz>
+
+Published under [CC BY-SA-NC][#license]
+This is primarily to prevent unscrupulous parties from printing and selling these
+in large print farms. Please send me an email if you'd like to negotiate commercial usage.
+
+[#license]:https://creativecommons.org/licenses/by-nc-sa/4.0/
