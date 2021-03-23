@@ -10,6 +10,7 @@ Currently, only one instrument is being worked on.
 
  - Lutekulele *WIP* - A lute-shaped ukelele, strung in doubled courses and tuned g-c-e-a,
    with the G course in octaves and all others in unison.
+   Tuned like a renaissance guitar, and thus already has a repetoire.
    Primarily a proof-of-concept that this project is at all possible.
    Could charitably be called a "mandore" or "mandolino", and restrung to have a more historical
    tuning of g-f-g-f or g-c-g-c.
