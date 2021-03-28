@@ -23,9 +23,11 @@ Currently, only one instrument is being worked on.
 
 ## LICENSE
 
-(c) Rudy Dellomas III <dther@dther.xyz>
+(c) Rudy Dellomas III,
+See github profile or <https://dther.xyz> for contact details
 
-Published under [CC BY-SA-NC][#license]
+Published under [CC BY-SA-NC][#license].
+
 This is primarily to prevent unscrupulous parties from printing and selling these
 in large print farms. Please send me an email if you'd like to negotiate commercial usage,
 or have produced a creative derivative and would like to relicense.
