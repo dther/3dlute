@@ -27,6 +27,7 @@ Currently, only one instrument is being worked on.
 
 Published under [CC BY-SA-NC][#license]
 This is primarily to prevent unscrupulous parties from printing and selling these
-in large print farms. Please send me an email if you'd like to negotiate commercial usage.
+in large print farms. Please send me an email if you'd like to negotiate commercial usage,
+or have produced a creative derivative and would like to relicense.
 
 [#license]:https://creativecommons.org/licenses/by-nc-sa/4.0/
